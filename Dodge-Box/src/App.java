@@ -1,7 +1,7 @@
 import javafx.*;
 
-public class App {
-    public static void main(String[] args) throws Exception {
-
+public class App extends Application {
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }
