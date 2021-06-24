@@ -1,2 +1,6 @@
 # no class files
 *.class
+
+# no Eclipse garbage
+*.classpath
+*.project
