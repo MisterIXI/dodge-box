@@ -4,3 +4,8 @@
 # no Eclipse garbage
 *.classpath
 *.project
+/.metadata/
+
+Dodge-Box/.metadata/
+
+Dodge-Box/.settings/
