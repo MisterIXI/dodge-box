@@ -20,7 +20,7 @@ public class PlayerRec extends MovingRec{
 	public void handleCollision(BoundObject other) {
 		if(!other.getIsHarmless()) {
 			setFill(Color.RED);
-			//DodgeBox.gameOver();
+			DodgeBox.gameOver();
 		}
 		else {
 			setX(lastPosition.getMinX());

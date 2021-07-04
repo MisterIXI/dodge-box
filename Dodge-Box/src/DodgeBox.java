@@ -25,7 +25,7 @@ public class DodgeBox extends Application {
 	private static boolean gameRunning;
 	private LinkedList<GameObject> gameObjects;
 	private ArrayList<BoundObject> collisionList;
-	private List<EnemyRec> enemies;
+	private static int enemyNum;
 	private static int timeToNextEnemy;
 	private static int score;
 
@@ -114,7 +114,7 @@ public class DodgeBox extends Application {
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
 		
-		enemies = Arrays.asList(
+		List<EnemyRec> enemies = Arrays.asList(
 				new EnemyRec(200, 200, 50, 50, false),
 				new EnemyRec(250, 200, 50, 50, false),
 				new EnemyRec(300, 200, 50, 50, false),
@@ -123,6 +123,7 @@ public class DodgeBox extends Application {
 				new EnemyRec(450, 200, 50, 50, false),
 				new EnemyRec(500, 200, 50, 50, false)
 				);
+		enemyNum = 7;
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
 		
@@ -150,13 +151,14 @@ public class DodgeBox extends Application {
 				}
 			}
 			if(timeToNextEnemy++ == 1000) {
-				EnemyRec temp = new EnemyRec(500, 200, 50, 50, false);
-				enemies.add(temp);
+				EnemyRec temp = new EnemyRec(50+Math.random()*1200, 50+Math.random()*700, 50, 50, false);
 				gameObjects.add(temp);
 				collisionList.add(temp);
 				border.getChildren().add(temp);
+				enemyNum++;
+				if(enemyNum >= 100) gameOver();
 				timeToNextEnemy = 0;
-				System.out.println("new enemy");
+				System.out.println(enemyNum);
 			}
 			score++;
 		}

@@ -10,7 +10,7 @@ public class EnemyRec extends MovingRec {
 
 	public EnemyRec(double x, double y, double width, double height, boolean isHarmless) {
 		super(x, y, width, height, isHarmless);
-		speed = 1;
+		speed = 0.5;
 		movingDir[0] = true;
 		movingDir[2] = true;
 		r = new Random();
