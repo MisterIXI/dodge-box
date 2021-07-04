@@ -5,7 +5,7 @@ public class PlayerRec extends MovingRec{
 	Bounds lastPosition;
 	
 	public PlayerRec(double x, double y, double width, double height, boolean isHarmless) {
-		super(x, y, width, height, isHarmless);
+		super(x, y, width, height, !isHarmless);
 		speed = 10;
 		lastPosition = getBoundsInParent();
 	}
@@ -26,7 +26,5 @@ public class PlayerRec extends MovingRec{
 			setX(lastPosition.getMinX());
 			setY(lastPosition.getMinY());
 		}
-		
 	}
-
 }

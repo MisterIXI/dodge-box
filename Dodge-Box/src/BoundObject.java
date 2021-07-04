@@ -12,7 +12,7 @@ public abstract class BoundObject extends Rectangle implements GameObject {
 	}
 
 	public boolean checkCollision(BoundObject other) {
-		Bounds o = other.getBoundsInLocal();
+		Bounds o = other.getBoundsInParent();
 		return this.intersects(o.getMinX() + 10, o.getMinY() + 10, o.getMaxX() -20, o.getMaxY() -20);
 	}
 

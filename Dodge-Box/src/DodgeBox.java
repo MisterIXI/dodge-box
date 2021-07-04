@@ -106,6 +106,11 @@ public class DodgeBox extends Application {
 		collisionList.add(boundTop);
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
+		
+		EnemyRec enemy1 = new EnemyRec(200, 200, 50, 50, false);
+		gameObjects.add(enemy1);
+		collisionList.add(enemy1);
+		
 		player.setFill(Color.BLUE);
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);
@@ -122,7 +127,7 @@ public class DodgeBox extends Application {
 			}
 			for (int i = 0; i < collisionList.size(); i++) {
 				for (int j = 0; j < collisionList.size(); j++) {
-					if (i < j) {
+					if (i != j) {
 						if (collisionList.get(i).checkCollision(collisionList.get(j))) {
 							collisionList.get(i).handleCollision(collisionList.get(j).isHarmless);
 						}
