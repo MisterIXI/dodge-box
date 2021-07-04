@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -148,6 +149,14 @@ public class DodgeBox extends Application {
 	
 	public static void gameOver() {
 		gameRunning = false;
+		Stage secondStage = new Stage();
+		BorderPane border = new BorderPane();
+		Scene scoreScene = new Scene(border);
+		
+		Label score = new Label("Score: " + 42069);//TODO: Add score
+		border.setCenter(score);
+		secondStage.setScene(scoreScene);
+		secondStage.show();
 	}
 
 }
