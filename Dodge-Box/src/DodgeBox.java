@@ -25,6 +25,9 @@ public class DodgeBox extends Application {
 	private static boolean gameRunning;
 	private LinkedList<GameObject> gameObjects;
 	private ArrayList<BoundObject> collisionList;
+	private List<EnemyRec> enemies;
+	private static int timeToNextEnemy;
+	private static int score;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -35,6 +38,8 @@ public class DodgeBox extends Application {
 		gameObjects = new LinkedList<>();
 		collisionList = new ArrayList<>();
 		gameRunning = true;
+		timeToNextEnemy = 0;
+		score = 0;
 	}
 
 	@Override
@@ -49,7 +54,7 @@ public class DodgeBox extends Application {
 
 
 		Timeline gameLoop = new Timeline(new KeyFrame(Duration.millis(1.6), event -> {
-			gameLoop();
+			gameLoop(border);
 		}));
 		gameLoop.setCycleCount(-1);
 		gameLoop.play();
@@ -109,7 +114,7 @@ public class DodgeBox extends Application {
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
 		
-		List<EnemyRec> enemies = Arrays.asList(
+		enemies = Arrays.asList(
 				new EnemyRec(200, 200, 50, 50, false),
 				new EnemyRec(250, 200, 50, 50, false),
 				new EnemyRec(300, 200, 50, 50, false),
@@ -130,7 +135,7 @@ public class DodgeBox extends Application {
 		System.out.println(mainScene.getWidth());
 	}
 
-	public void gameLoop() {
+	public void gameLoop(BorderPane border) {
 		if (gameRunning) {
 			for (GameObject x : gameObjects) {
 				x.Tick();
@@ -144,6 +149,16 @@ public class DodgeBox extends Application {
 					}
 				}
 			}
+			if(timeToNextEnemy++ == 1000) {
+				EnemyRec temp = new EnemyRec(500, 200, 50, 50, false);
+				enemies.add(temp);
+				gameObjects.add(temp);
+				collisionList.add(temp);
+				border.getChildren().add(temp);
+				timeToNextEnemy = 0;
+				System.out.println("new enemy");
+			}
+			score++;
 		}
 	}
 	
@@ -153,8 +168,8 @@ public class DodgeBox extends Application {
 		BorderPane border = new BorderPane();
 		Scene scoreScene = new Scene(border);
 		
-		Label score = new Label("Score: " + 42069);//TODO: Add score
-		border.setCenter(score);
+		Label scoreLabel = new Label("Score: " + score/100);//TODO: Add score
+		border.setCenter(scoreLabel);
 		secondStage.setScene(scoreScene);
 		secondStage.show();
 	}
