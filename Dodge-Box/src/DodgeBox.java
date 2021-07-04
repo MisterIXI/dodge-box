@@ -1,7 +1,9 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -42,10 +44,10 @@ public class DodgeBox extends Application {
 		Rectangle rec = new Rectangle(50, 50);
 		Pane x = new Pane();
 
-		PlayerRec player = new PlayerRec(50, 50, 50, 50, true);
+		PlayerRec player = new PlayerRec(1000, 500, 50, 50, true);
 
 
-		Timeline gameLoop = new Timeline(new KeyFrame(Duration.millis(16), event -> {
+		Timeline gameLoop = new Timeline(new KeyFrame(Duration.millis(1.6), event -> {
 			gameLoop();
 		}));
 		gameLoop.setCycleCount(-1);
@@ -95,7 +97,6 @@ public class DodgeBox extends Application {
 		
 		gameObjects.add(player);
 		collisionList.add(player);
-		Rectangle renderPlayer = new Rectangle(50, 50);
 
 		StillRec boundLeft = new StillRec(0, 0, 30, 800, true);
 		StillRec boundTop = new StillRec(30, 0, 1270,30, true);
@@ -107,9 +108,17 @@ public class DodgeBox extends Application {
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
 		
-		EnemyRec enemy1 = new EnemyRec(200, 200, 50, 50, false);
-		gameObjects.add(enemy1);
-		collisionList.add(enemy1);
+		List<EnemyRec> enemies = Arrays.asList(
+				new EnemyRec(200, 200, 50, 50, false),
+				new EnemyRec(250, 200, 50, 50, false),
+				new EnemyRec(300, 200, 50, 50, false),
+				new EnemyRec(350, 200, 50, 50, false),
+				new EnemyRec(400, 200, 50, 50, false),
+				new EnemyRec(450, 200, 50, 50, false),
+				new EnemyRec(500, 200, 50, 50, false)
+				);
+		gameObjects.addAll(enemies);
+		collisionList.addAll(enemies);
 		
 		player.setFill(Color.BLUE);
 		border.getChildren().addAll(collisionList);
@@ -129,7 +138,7 @@ public class DodgeBox extends Application {
 				for (int j = 0; j < collisionList.size(); j++) {
 					if (i != j) {
 						if (collisionList.get(i).checkCollision(collisionList.get(j))) {
-							collisionList.get(i).handleCollision(collisionList.get(j).isHarmless);
+							collisionList.get(i).handleCollision(collisionList.get(j));
 						}
 					}
 				}

@@ -11,7 +11,7 @@ public class StillRec  extends BoundObject{
 	}
 
 	@Override
-	public void handleCollision(boolean otherIsHarmless) {
+	public void handleCollision(BoundObject other) {
 		
 	}
 

@@ -13,12 +13,16 @@ public abstract class BoundObject extends Rectangle implements GameObject {
 
 	public boolean checkCollision(BoundObject other) {
 		Bounds o = other.getBoundsInParent();
-		return this.intersects(o.getMinX() + 10, o.getMinY() + 10, o.getMaxX() -20, o.getMaxY() -20);
+		return this.intersects(other.getLayoutBounds());
 	}
 
 	@Override
 	public abstract void Tick();
 
-	public abstract void handleCollision(boolean otherIsHarmless);
+	public abstract void handleCollision(BoundObject other);
+	
+	public boolean getIsHarmless() {
+		return isHarmless;
+	}
 
 }

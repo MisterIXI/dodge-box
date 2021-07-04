@@ -6,19 +6,19 @@ public class PlayerRec extends MovingRec{
 	
 	public PlayerRec(double x, double y, double width, double height, boolean isHarmless) {
 		super(x, y, width, height, !isHarmless);
-		speed = 10;
-		lastPosition = getBoundsInParent();
+		speed = 1;
+		lastPosition = getLayoutBounds();
 	}
 
 	@Override
 	public void Tick() {
-		lastPosition = getBoundsInParent();
+		lastPosition = getLayoutBounds();
 		move();
 	}
 
 	@Override
-	public void handleCollision(boolean otherIsHarmless) {
-		if(!otherIsHarmless) {
+	public void handleCollision(BoundObject other) {
+		if(!other.getIsHarmless()) {
 			setFill(Color.RED);
 			DodgeBox.gameOver();
 		}

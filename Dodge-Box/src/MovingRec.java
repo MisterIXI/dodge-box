@@ -6,7 +6,7 @@ public abstract class MovingRec extends BoundObject{
 		// TODO Auto-generated constructor stub
 	}
 
-	int speed;
+	double speed;
 	boolean movingDir[] = new boolean[4];
 
 	public enum Direction {
