@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,6 +27,7 @@ public class DodgeBox extends Application {
 	private static boolean gameRunning;
 	private LinkedList<GameObject> gameObjects;
 	private ArrayList<BoundObject> collisionList;
+	private List<EnemyRec> enemies;
 	private static int enemyNum;
 	private static int timeToNextEnemy;
 	private static int score;
@@ -114,7 +117,7 @@ public class DodgeBox extends Application {
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
 		
-		List<EnemyRec> enemies = Arrays.asList(
+		enemies = new ArrayList<EnemyRec>(Arrays.asList(
 				new EnemyRec(200, 200, 50, 50, false),
 				new EnemyRec(250, 200, 50, 50, false),
 				new EnemyRec(300, 200, 50, 50, false),
@@ -122,8 +125,8 @@ public class DodgeBox extends Application {
 				new EnemyRec(400, 200, 50, 50, false),
 				new EnemyRec(450, 200, 50, 50, false),
 				new EnemyRec(500, 200, 50, 50, false)
-				);
-		enemyNum = 7;
+				));
+		enemyNum = enemies.size();
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
 		
@@ -152,11 +155,17 @@ public class DodgeBox extends Application {
 			}
 			if(timeToNextEnemy++ == 1000) {
 				EnemyRec temp = new EnemyRec(50+Math.random()*1200, 50+Math.random()*700, 50, 50, false);
+				enemies.add(temp);
 				gameObjects.add(temp);
 				collisionList.add(temp);
 				border.getChildren().add(temp);
+				
+				for (EnemyRec x : enemies) {
+					x.speed = enemies.get(0).speed+0.01;
+				}
+				
 				enemyNum++;
-				if(enemyNum >= 100) gameOver();
+				if(enemyNum >= 50) gameOver();
 				timeToNextEnemy = 0;
 				System.out.println(enemyNum);
 			}
