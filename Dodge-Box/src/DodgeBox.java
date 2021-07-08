@@ -151,7 +151,7 @@ public class DodgeBox extends Application {
 				}
 			}
 			if (timeToNextEnemy++ == 1000) {
-				EnemyRec temp = new EnemyRec(50 + Math.random() * 1200, 50 + Math.random() * 700, 10, 10, false);
+				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 10, 10, false);
 				boolean isStuck = false;
 				do {
 					isStuck = false;
@@ -166,7 +166,7 @@ public class DodgeBox extends Application {
 					if (temp.intersects(pB.getMinX() - 50, pB.getMinY() - 50, 150, 150)) 
 						isStuck = true;
 					if (isStuck) {
-						temp = new EnemyRec(50 + Math.random() * 1200, 50 + Math.random() * 700, 10, 10, false);
+						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 10, 10, false);
 						System.out.println("Stuck spawn avoided");
 					}
 
