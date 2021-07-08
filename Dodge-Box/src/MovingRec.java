@@ -1,16 +1,20 @@
+import javafx.scene.paint.Color;
 
 public abstract class MovingRec extends BoundObject{
 	
-	public MovingRec(double x, double y, double width, double height, boolean isHarmless) {
-		super(x, y, width, height, isHarmless);
-		// TODO Auto-generated constructor stub
-	}
-
 	double speed;
+	private double hue;
 	boolean movingDir[] = new boolean[4];
 
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
+	}
+	
+	public MovingRec(double x, double y, double width, double height, boolean isHarmless, Color color) {
+		super(x, y, width, height, isHarmless);
+		this.hue = color.getHue();
+		if(isHarmless) this.setFill(Color.hsb(hue, 1, 1));
+		else this.setFill(Color.hsb(hue, 1, 1));
 	}
 	
 	public void move() {
@@ -54,5 +58,14 @@ public abstract class MovingRec extends BoundObject{
 	
 	public void switchRIGHT(boolean shouldMove) {
 		movingDir[3] = shouldMove;
+	}
+	
+	public void setSpeed(double speed) {
+		this.speed = speed;
+		//this.setFill(Color.hsb(hue, speed, 1));
+	}
+	
+	public void setSize(double width, double height) {
+		super.resize(width, height);
 	}
 }

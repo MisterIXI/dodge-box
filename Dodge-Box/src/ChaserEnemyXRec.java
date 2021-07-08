@@ -8,18 +8,16 @@ public class ChaserEnemyXRec extends MovingRec {
 	Random r;
 	boolean handledCollision;
 	Bounds lastPosition;
-	private double hue;
     PlayerRec player;
 
-    public ChaserEnemyXRec(double x, double y, double width, double height, boolean isHarmless, PlayerRec player) {
-        super(x, y, width, height, isHarmless);
+    public ChaserEnemyXRec(double x, double y, double width, double height, PlayerRec player) {
+        super(x, y, width, height, false, Color.BLUEVIOLET);
         speed = 0.1;
         movingDir[0] = true;
         movingDir[2] = true;
         r = new Random();
         handledCollision = false;
         lastPosition = getBoundsInParent();
-        hue = Color.BLUE.getHue();
         this.player = player;
     }
     
@@ -78,9 +76,8 @@ public class ChaserEnemyXRec extends MovingRec {
 		}
 	}
 	
+	@Override
 	public void setSpeed(double speed) {
 		this.speed = speed;
-		this.setFill(Color.hsb(hue, 1, speed));
 	}
-
 }

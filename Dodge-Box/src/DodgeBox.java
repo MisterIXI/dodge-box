@@ -59,7 +59,7 @@ public class DodgeBox extends Application {
 		Rectangle rec = new Rectangle(50, 50);
 		Pane x = new Pane();
 
-		PlayerRec player = new PlayerRec(1000, 500, 50, 50, true);
+		PlayerRec player = new PlayerRec(1000, 500, 50, 50, true, Color.BLUE);
 
 		Timeline gameLoop = new Timeline(new KeyFrame(Duration.millis(1.6), event -> {
 			gameLoop(border);
@@ -122,19 +122,18 @@ public class DodgeBox extends Application {
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
 
-		enemies = new ArrayList<EnemyRec>(Arrays.asList(new EnemyRec(200, 200, 50, 50, false),
-				new EnemyRec(250, 200, 50, 50, false), new EnemyRec(300, 200, 50, 50, false),
-				new EnemyRec(350, 200, 50, 50, false), new EnemyRec(400, 200, 50, 50, false),
-				new EnemyRec(450, 200, 50, 50, false), new EnemyRec(500, 200, 50, 50, false)));
+		enemies = new ArrayList<EnemyRec>(Arrays.asList(new EnemyRec(200, 200, 50, 50),
+				new EnemyRec(250, 200, 50, 50), new EnemyRec(300, 200, 50, 50),
+				new EnemyRec(350, 200, 50, 50), new EnemyRec(400, 200, 50, 50),
+				new EnemyRec(450, 200, 50, 50), new EnemyRec(500, 200, 50, 50)));
 		enemyNum = enemies.size();
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
 
-		ChaserEnemyXRec chaser = new ChaserEnemyXRec(550, 200, 50, 50, false, player);
+		ChaserEnemyXRec chaser = new ChaserEnemyXRec(550, 200, 50, 50, player);
 		gameObjects.add(chaser);
 		collisionList.add(chaser);
 
-		player.setFill(Color.BLUE);
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
@@ -158,7 +157,7 @@ public class DodgeBox extends Application {
 				}
 			}
 			if (timeToNextEnemy++ == 1000) {
-				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650,Math.random()*40 +  10,Math.random()*40 +  10, false);
+				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650,Math.random()*40 +  10,Math.random()*40 +  10);
 				boolean isStuck = false;
 				do {
 					isStuck = false;
@@ -175,7 +174,7 @@ public class DodgeBox extends Application {
 						System.out.println("prevented Player Spawn");
 					}
 					if (isStuck) {
-						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, Math.random()*40 + 10,Math.random()*40 +  10, false);
+						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, Math.random()*40 + 10,Math.random()*40 +  10);
 						System.out.println("Stuck spawn avoided");
 					}
 
