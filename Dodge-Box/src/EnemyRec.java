@@ -2,11 +2,13 @@ import java.util.Arrays;
 import java.util.Random;
 
 import javafx.geometry.Bounds;
+import javafx.scene.paint.Color;
 
 public class EnemyRec extends MovingRec {
 	Random r;
 	boolean handledCollision;
 	Bounds lastPosition;
+	private double hue;
 
 	public EnemyRec(double x, double y, double width, double height, boolean isHarmless) {
 		super(x, y, width, height, isHarmless);
@@ -16,6 +18,7 @@ public class EnemyRec extends MovingRec {
 		r = new Random();
 		handledCollision = false;
 		lastPosition = getBoundsInParent();
+		hue = Color.RED.getHue();
 	}
 
 	@Override
@@ -49,6 +52,11 @@ public class EnemyRec extends MovingRec {
 			}
 			handledCollision = true;
 		}
+	}
+	
+	public void setSpeed(double speed) {
+		this.speed = speed;
+		this.setFill(Color.hsb(hue, 1, speed));
 	}
 
 }

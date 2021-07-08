@@ -161,7 +161,7 @@ public class DodgeBox extends Application {
 				border.getChildren().add(temp);
 				
 				for (EnemyRec x : enemies) {
-					x.speed = enemies.get(0).speed+0.01;
+					x.setSpeed(enemies.get(0).speed+0.01);
 				}
 				
 				enemyNum++;
