@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -52,6 +53,8 @@ public class DodgeBox extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane border = new BorderPane();
 		Scene mainScene = new Scene(border, 1300, 800);
+		primaryStage.setTitle("DodgeBox");
+		primaryStage.getIcons().add(new Image("icon.png"));
 
 		Rectangle rec = new Rectangle(50, 50);
 		Pane x = new Pane();
@@ -127,6 +130,13 @@ public class DodgeBox extends Application {
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
 
+<<<<<<< Updated upstream
+=======
+		ChaserEnemyXRec chaser = new ChaserEnemyXRec(550, 200, 50, 50, false, player);
+		gameObjects.add(chaser);
+		collisionList.add(chaser);
+		
+>>>>>>> Stashed changes
 		player.setFill(Color.BLUE);
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);

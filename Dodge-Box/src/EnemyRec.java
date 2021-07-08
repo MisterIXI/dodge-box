@@ -9,7 +9,6 @@ public class EnemyRec extends MovingRec {
 	boolean handledCollision;
 	Bounds lastPosition;
 	private double hue;
-	boolean active;
 
 	public EnemyRec(double x, double y, double width, double height, boolean isHarmless) {
 		super(x, y, width, height, isHarmless);
@@ -26,7 +25,6 @@ public class EnemyRec extends MovingRec {
 		handledCollision = false;
 		lastPosition = getBoundsInParent();
 		hue = Color.RED.getHue();
-		active = true;
 	}
 
 	@Override
@@ -66,5 +64,8 @@ public class EnemyRec extends MovingRec {
 		this.speed = speed;
 		this.setFill(Color.hsb(hue, 1, speed));
 	}
-
+	
+	public void setSize(double width, double height) {
+		super.resize(width, height);
+	}
 }
