@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -49,6 +50,8 @@ public class DodgeBox extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane border = new BorderPane();
 		Scene mainScene = new Scene(border, 1300, 800);
+		primaryStage.setTitle("DodgeBox");
+		primaryStage.getIcons().add(new Image("icon.png"));
 
 		Rectangle rec = new Rectangle(50, 50);
 		Pane x = new Pane();
