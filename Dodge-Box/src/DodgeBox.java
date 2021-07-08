@@ -151,7 +151,7 @@ public class DodgeBox extends Application {
 				}
 			}
 			if (timeToNextEnemy++ == 1000) {
-				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 10, 10, false);
+				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650,Math.random()*40 +  10,Math.random()*40 +  10, false);
 				boolean isStuck = false;
 				do {
 					isStuck = false;
@@ -163,10 +163,12 @@ public class DodgeBox extends Application {
 					Bounds pB = collisionList.get(0).getBoundsInParent();// get player bounds
 
 					// check if it intersects player, but with extra space around
-					if (temp.intersects(pB.getMinX() - 50, pB.getMinY() - 50, 150, 150)) 
+					if (temp.intersects(pB.getMinX() - 150, pB.getMinY() - 150, 350, 350)) {
 						isStuck = true;
+						System.out.println("prevented Player Spawn");
+					}
 					if (isStuck) {
-						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 10, 10, false);
+						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, Math.random()*40 + 10,Math.random()*40 +  10, false);
 						System.out.println("Stuck spawn avoided");
 					}
 
