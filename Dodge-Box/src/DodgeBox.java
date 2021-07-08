@@ -1,15 +1,9 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
-import com.sun.javafx.geom.Shape;
-
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -20,9 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -55,9 +47,6 @@ public class DodgeBox extends Application {
 		Scene mainScene = new Scene(border, 1300, 800);
 		primaryStage.setTitle("DodgeBox");
 		primaryStage.getIcons().add(new Image("icon.png"));
-
-		Rectangle rec = new Rectangle(50, 50);
-		Pane x = new Pane();
 
 		PlayerRec player = new PlayerRec(1000, 500, 50, 50, true, Color.BLUE);
 
