@@ -146,7 +146,8 @@ public class DodgeBox extends Application {
 				}
 			}
 			if (timeToNextEnemy++ == 1000) {
-				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650,Math.random()*40 +  10,Math.random()*40 +  10);
+				double randDouble = Math.random()*40 +10;
+				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, randDouble, randDouble);
 				boolean isStuck = false;
 				do {
 					isStuck = false;
@@ -163,7 +164,8 @@ public class DodgeBox extends Application {
 						System.out.println("prevented Player Spawn");
 					}
 					if (isStuck) {
-						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, Math.random()*40 + 10,Math.random()*40 +  10);
+						randDouble = Math.random()*40 +10;
+						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, randDouble, randDouble);
 						System.out.println("Stuck spawn avoided");
 					}
 
