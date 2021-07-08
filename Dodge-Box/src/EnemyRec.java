@@ -9,6 +9,7 @@ public class EnemyRec extends MovingRec {
 	boolean handledCollision;
 	Bounds lastPosition;
 	private double hue;
+	boolean active;
 
 	public EnemyRec(double x, double y, double width, double height, boolean isHarmless) {
 		super(x, y, width, height, isHarmless);
@@ -19,6 +20,7 @@ public class EnemyRec extends MovingRec {
 		handledCollision = false;
 		lastPosition = getBoundsInParent();
 		hue = Color.RED.getHue();
+		active = true;
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class EnemyRec extends MovingRec {
 
 	@Override
 	public void handleCollision(BoundObject other) {
-		if (!handledCollision) {
+		if (!handledCollision && (other.getClass().getName() != "PlayerRec")) {
 
 			//System.out.println("oof ouch ouwie");
 			if (true) {
