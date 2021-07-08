@@ -130,13 +130,10 @@ public class DodgeBox extends Application {
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
 
-<<<<<<< Updated upstream
-=======
 		ChaserEnemyXRec chaser = new ChaserEnemyXRec(550, 200, 50, 50, false, player);
 		gameObjects.add(chaser);
 		collisionList.add(chaser);
-		
->>>>>>> Stashed changes
+
 		player.setFill(Color.BLUE);
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);
