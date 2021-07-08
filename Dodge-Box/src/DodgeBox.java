@@ -119,9 +119,13 @@ public class DodgeBox extends Application {
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
 
-		ChaserEnemyXRec chaser = new ChaserEnemyXRec(550, 200, 50, 50, player);
-		gameObjects.add(chaser);
-		collisionList.add(chaser);
+		ChaserEnemyXRec chaserX = new ChaserEnemyXRec(550, 200, 50, 50, player);
+		gameObjects.add(chaserX);
+		collisionList.add(chaserX);
+
+		ChaserEnemyYRec chaserY = new ChaserEnemyYRec(700, 200, 50, 50, player);
+		gameObjects.add(chaserY);
+		collisionList.add(chaserY);
 
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);
