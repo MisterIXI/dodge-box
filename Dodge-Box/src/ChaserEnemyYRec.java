@@ -74,5 +74,4 @@ public class ChaserEnemyYRec extends MovingRec {
 			handledCollision = true;
 		}
 	}
-
 }

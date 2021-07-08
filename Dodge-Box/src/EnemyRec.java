@@ -9,7 +9,7 @@ public class EnemyRec extends MovingRec {
 	Bounds lastPosition;
 
 	public EnemyRec(double x, double y, double width, double height) {
-		super(x, y, width, height, false, Color.DARKRED);
+		super(x, y, width, height, false, Color.hsb(Color.DARKRED.getHue(), 0.2, 1));
 		speed = 0.1;
 		if(Math.random()>0.5)
 			movingDir[0] = true;
@@ -55,5 +55,11 @@ public class EnemyRec extends MovingRec {
 			}
 			handledCollision = true;
 		}
+	}
+	
+	@Override
+	public void setSpeed(double speed) {
+		this.speed = speed;
+		this.setFill(Color.hsb(hue, 0.1+speed, 1));
 	}	
 }

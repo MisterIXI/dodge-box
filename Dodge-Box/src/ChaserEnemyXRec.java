@@ -74,9 +74,4 @@ public class ChaserEnemyXRec extends MovingRec {
 			handledCollision = true;
 		}
 	}
-	
-	@Override
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
 }
