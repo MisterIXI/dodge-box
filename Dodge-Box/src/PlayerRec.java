@@ -19,7 +19,7 @@ public class PlayerRec extends MovingRec{
 	@Override
 	public void handleCollision(BoundObject other) {
 		if(!other.getIsHarmless()) {
-			setFill(Color.RED);
+			setFill(Color.LIGHTGRAY);
 			//DodgeBox.gameOver();
 		}
 		else {
