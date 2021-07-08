@@ -60,6 +60,8 @@ public class EnemyRec extends MovingRec {
 	@Override
 	public void setSpeed(double speed) {
 		this.speed = speed;
-		this.setFill(Color.hsb(hue, 0.1+speed, 1));
+		double saturation = speed*2;
+		if(saturation > 1) saturation = 1;
+		this.setFill(Color.hsb(hue, saturation, 1));
 	}	
 }
