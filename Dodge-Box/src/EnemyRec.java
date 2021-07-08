@@ -13,8 +13,14 @@ public class EnemyRec extends MovingRec {
 	public EnemyRec(double x, double y, double width, double height, boolean isHarmless) {
 		super(x, y, width, height, isHarmless);
 		speed = 0.1;
-		movingDir[0] = true;
-		movingDir[2] = true;
+		if(Math.random()>0.5)
+			movingDir[0] = true;
+		else
+			movingDir[1] = true;
+		if(Math.random()>0.5)
+			movingDir[2] = true;
+		else
+			movingDir[3] = true;
 		r = new Random();
 		handledCollision = false;
 		lastPosition = getBoundsInParent();

@@ -7,11 +7,14 @@ import java.util.List;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import com.sun.javafx.geom.Shape;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -57,7 +60,6 @@ public class DodgeBox extends Application {
 		Pane x = new Pane();
 
 		PlayerRec player = new PlayerRec(1000, 500, 50, 50, true);
-
 
 		Timeline gameLoop = new Timeline(new KeyFrame(Duration.millis(1.6), event -> {
 			gameLoop(border);
@@ -106,33 +108,28 @@ public class DodgeBox extends Application {
 				}
 			}
 		});
-		
+
 		gameObjects.add(player);
 		collisionList.add(player);
 
 		StillRec boundLeft = new StillRec(0, 0, 30, 800, true);
-		StillRec boundTop = new StillRec(30, 0, 1270,30, true);
+		StillRec boundTop = new StillRec(30, 0, 1270, 30, true);
 		StillRec boundRight = new StillRec(1270, 30, 30, 770, true);
-		StillRec boundBottom = new StillRec(30,770,1270,30, true);
-		
+		StillRec boundBottom = new StillRec(30, 770, 1270, 30, true);
+
 		collisionList.add(boundLeft);
 		collisionList.add(boundTop);
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
-		
-		enemies = new ArrayList<EnemyRec>(Arrays.asList(
-				new EnemyRec(200, 200, 50, 50, false),
-				new EnemyRec(250, 200, 50, 50, false),
-				new EnemyRec(300, 200, 50, 50, false),
-				new EnemyRec(350, 200, 50, 50, false),
-				new EnemyRec(400, 200, 50, 50, false),
-				new EnemyRec(450, 200, 50, 50, false),
-				new EnemyRec(500, 200, 50, 50, false)
-				));
+
+		enemies = new ArrayList<EnemyRec>(Arrays.asList(new EnemyRec(200, 200, 50, 50, false),
+				new EnemyRec(250, 200, 50, 50, false), new EnemyRec(300, 200, 50, 50, false),
+				new EnemyRec(350, 200, 50, 50, false), new EnemyRec(400, 200, 50, 50, false),
+				new EnemyRec(450, 200, 50, 50, false), new EnemyRec(500, 200, 50, 50, false)));
 		enemyNum = enemies.size();
 		gameObjects.addAll(enemies);
 		collisionList.addAll(enemies);
-		
+
 		player.setFill(Color.BLUE);
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);
@@ -156,33 +153,53 @@ public class DodgeBox extends Application {
 					}
 				}
 			}
-			if(timeToNextEnemy++ == 1000) {
-				EnemyRec temp = new EnemyRec(50+Math.random()*1200, 50+Math.random()*700, 50, 50, false);
+			if (timeToNextEnemy++ == 1000) {
+				EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 10, 10, false);
+				boolean isStuck = false;
+				do {
+					isStuck = false;
+
+					for (int i = 0; i < collisionList.size(); i++) {// -1 to exclude the newly added temp rec
+						if (collisionList.get(i).checkCollision(temp))
+							isStuck = true;
+					}
+					Bounds pB = collisionList.get(0).getBoundsInParent();// get player bounds
+
+					// check if it intersects player, but with extra space around
+					if (temp.intersects(pB.getMinX() - 50, pB.getMinY() - 50, 150, 150)) 
+						isStuck = true;
+					if (isStuck) {
+						temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 10, 10, false);
+						System.out.println("Stuck spawn avoided");
+					}
+
+				} while (isStuck);
+
 				enemies.add(temp);
 				gameObjects.add(temp);
 				collisionList.add(temp);
 				border.getChildren().add(temp);
-				
 				for (EnemyRec x : enemies) {
-					x.setSpeed(enemies.get(0).speed+0.01);
+					x.setSpeed(enemies.get(0).speed + 0.01);
 				}
-				
+
 				enemyNum++;
-				if(enemyNum >= 50) gameOver();
+				if (enemyNum >= 50)
+					gameOver();
 				timeToNextEnemy = 0;
 				System.out.println(enemyNum);
 			}
 			score++;
 		}
 	}
-	
+
 	public static void gameOver() {
 		gameRunning = false;
 		Stage secondStage = new Stage();
 		BorderPane border = new BorderPane();
 		Scene scoreScene = new Scene(border);
-		
-		Label scoreLabel = new Label("Score: " + score/100);//TODO: Add score
+
+		Label scoreLabel = new Label("Score: " + score / 100);// TODO: Add score
 		border.setCenter(scoreLabel);
 		secondStage.setScene(scoreScene);
 		secondStage.show();
