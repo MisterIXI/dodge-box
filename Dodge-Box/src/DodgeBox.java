@@ -31,7 +31,8 @@ public class DodgeBox extends Application {
 	private static int enemyNum;
 	private static int timeToNextEnemy;
 	private static int score;
-
+	
+	private int dodgeCooldown;
 	private PlayerRec player;
 
 	BorderPane border;
@@ -47,6 +48,7 @@ public class DodgeBox extends Application {
 		gameRunning = true;
 		timeToNextEnemy = 0;
 		score = 0;
+		dodgeCooldown = 0;
 	}
 
 	@Override
@@ -100,6 +102,23 @@ public class DodgeBox extends Application {
 				case RIGHT:
 					player.movingDir[3] = false;
 					break;
+				case SHIFT:
+					if(dodgeCooldown == 0) {
+						
+					player.dodgeMove();
+					boolean isInvalidMove = false;
+					for (int i = 1; i < collisionList.size(); i++) {
+						if(player.intersects(collisionList.get(i).getBoundsInParent()))
+							isInvalidMove = true;
+					}
+					if(player.getX() < 0 || player.getX() > 1300 || player.getY() < 0 || player.getY() > 800)
+						isInvalidMove = true;
+					if(isInvalidMove)
+						player.resetDodge();
+					dodgeCooldown = 1000;
+					player.setFill(Color.DARKBLUE);
+					}
+					break;
 				default:
 					break;
 				}
@@ -148,6 +167,10 @@ public class DodgeBox extends Application {
 				System.out.println(enemyNum);
 			}
 			score++;
+			if(dodgeCooldown > 0) {
+				if(--dodgeCooldown == 0)
+					player.setFill(Color.BLUE);
+			}
 		}
 	}
 

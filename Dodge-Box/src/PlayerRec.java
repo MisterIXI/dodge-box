@@ -29,4 +29,22 @@ public class PlayerRec extends MovingRec{
 			setY(lastPosition.getMinY());
 		}
 	}
+	
+	public void dodgeMove() {
+		lastPosition = getLayoutBounds();
+		int dodgeRange = 250;
+		if(movingDir[0])
+			setY(getY() - dodgeRange);
+		if(movingDir[1])
+			setY(getY() + dodgeRange);
+		if(movingDir[2])
+			setX(getX() - dodgeRange);
+		if(movingDir[3])
+			setX(getX() + dodgeRange);
+	}
+	
+	public void resetDodge() {
+		setX(lastPosition.getMinX());
+		setY(lastPosition.getMinY());
+	}
 }
