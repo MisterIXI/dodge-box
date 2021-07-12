@@ -3,11 +3,13 @@ import javafx.scene.paint.Color;
 
 public class PlayerRec extends MovingRec{
 	Bounds lastPosition;
+	DodgeBox game;
 	
-	public PlayerRec(double x, double y, double width, double height, boolean isHarmless, Color color) {
+	public PlayerRec(double x, double y, double width, double height, boolean isHarmless, Color color, DodgeBox game) {
 		super(x, y, width, height, isHarmless, color);
 		speed = 1;
 		lastPosition = getLayoutBounds();
+		this.game = game;
 	}
 
 	@Override
@@ -20,7 +22,7 @@ public class PlayerRec extends MovingRec{
 	public void handleCollision(BoundObject other) {
 		if(!other.getIsHarmless()) {
 			setFill(Color.LIGHTGRAY);
-			DodgeBox.gameOver();
+			game.gameOver();
 		}
 		else {
 			setX(lastPosition.getMinX());
