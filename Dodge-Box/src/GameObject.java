@@ -2,5 +2,5 @@
 
 public interface GameObject {
 	
-	public void Tick();
+	public void tick();
 }

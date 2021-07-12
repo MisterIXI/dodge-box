@@ -138,7 +138,7 @@ public class DodgeBox extends Application {
 	public void gameLoop(BorderPane border) {
 		if (gameRunning) {
 			for (GameObject x : gameObjects) {
-				x.Tick();
+				x.tick();
 			}
 			for (int i = 0; i < collisionList.size(); i++) {
 				for (int j = 0; j < collisionList.size(); j++) {

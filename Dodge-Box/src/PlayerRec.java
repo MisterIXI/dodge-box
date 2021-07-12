@@ -11,7 +11,7 @@ public class PlayerRec extends MovingRec{
 	}
 
 	@Override
-	public void Tick() {
+	public void tick() {
 		lastPosition = getLayoutBounds();
 		move();
 	}
@@ -20,7 +20,7 @@ public class PlayerRec extends MovingRec{
 	public void handleCollision(BoundObject other) {
 		if(!other.getIsHarmless()) {
 			setFill(Color.LIGHTGRAY);
-			//DodgeBox.gameOver();
+			DodgeBox.gameOver();
 		}
 		else {
 			setX(lastPosition.getMinX());

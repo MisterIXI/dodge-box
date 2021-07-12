@@ -17,7 +17,7 @@ public abstract class BoundObject extends Rectangle implements GameObject {
 	}
 
 	@Override
-	public abstract void Tick();
+	public abstract void tick();
 
 	public abstract void handleCollision(BoundObject other);
 	

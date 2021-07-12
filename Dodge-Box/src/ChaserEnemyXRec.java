@@ -21,7 +21,7 @@ public class ChaserEnemyXRec extends MovingRec {
     }
     
 	@Override
-	public void Tick() {
+	public void tick() {
 		lastPosition = getBoundsInParent();
 		move();
 		handledCollision = false;

@@ -6,7 +6,7 @@ public class StillRec  extends BoundObject{
 	}
 
 	@Override
-	public void Tick() {
+	public void tick() {
 		
 	}
 
