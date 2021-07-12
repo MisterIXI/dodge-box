@@ -31,9 +31,9 @@ public class DodgeBox extends Application {
 	private static int enemyNum;
 	private static int timeToNextEnemy;
 	private static int score;
-	
+
 	private PlayerRec player;
-	
+
 	BorderPane border;
 
 	public static void main(String[] args) {
@@ -110,12 +110,10 @@ public class DodgeBox extends Application {
 		collisionList.add(player);
 
 		spawnBoundaries();
-		
-		fillEnemies();
-		gameObjects.addAll(enemies);
-		collisionList.addAll(enemies);
-		
 
+		enemies = new ArrayList<>();
+		fillEnemies();
+		System.out.println(enemies);
 		border.getChildren().addAll(collisionList);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
@@ -139,7 +137,8 @@ public class DodgeBox extends Application {
 				}
 			}
 			if (timeToNextEnemy++ == 1000 && enemyNum < 50) {
-				spawnEnemy();
+				
+				border.getChildren().add(spawnEnemy(EnemyType.Standard));
 				for (MovingRec x : enemies) {
 					x.setSpeed(enemies.get(0).speed + 0.01);
 				}
@@ -154,7 +153,7 @@ public class DodgeBox extends Application {
 
 	public void gameOver() {
 		gameRunning = false;
-		
+
 		Stage secondStage = new Stage();
 		BorderPane secondBorder = new BorderPane();
 		Scene scoreScene = new Scene(secondBorder);
@@ -162,32 +161,29 @@ public class DodgeBox extends Application {
 		secondStage.setHeight(150);
 		Button btn_restart = new Button("Restart?");
 		btn_restart.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				gameObjects.clear();
 				collisionList.clear();
 				border.getChildren().clear();
-				
+
 				gameObjects.add(player);
 				collisionList.add(player);
 				player.setX(1000);
 				player.setY(500);
 				player.setFill(Color.BLUE);
-				player.movingDir = new boolean[]{false, false, false, false};
-				
+				player.movingDir = new boolean[] { false, false, false, false };
+
 				spawnBoundaries();
-				
-				//spawn all enemies back
+
+				// spawn all enemies back
 				fillEnemies();
-				
-				//reset helper variables
+
+				// reset helper variables
 				timeToNextEnemy = 0;
 				score = 0;
-				
-				
-				gameObjects.addAll(enemies);
-				collisionList.addAll(enemies);
+
 				border.getChildren().addAll(collisionList);
 				secondStage.close();
 				gameRunning = true;
@@ -196,39 +192,54 @@ public class DodgeBox extends Application {
 		secondBorder.setBottom(btn_restart);
 		BorderPane.setMargin(btn_restart, new Insets(10));
 		BorderPane.setAlignment(btn_restart, Pos.CENTER);
-		
+
 		Label scoreLabel = new Label("Score: " + score / 100);// TODO: Add score
 		secondBorder.setCenter(scoreLabel);
-		
+
 		secondStage.getIcons().add(new Image("icon.png"));
 		secondStage.setScene(scoreScene);
 		secondStage.show();
 	}
-	
+
 	private void fillEnemies() {
-		if(enemies != null)
+		if (enemies != null)
 			enemies.clear();
-		enemies = new ArrayList<MovingRec>(Arrays.asList(new EnemyRec(200, 200, 50, 50),
-				new EnemyRec(250, 200, 50, 50), new EnemyRec(300, 200, 50, 50),
-				new EnemyRec(350, 200, 50, 50), new EnemyRec(400, 200, 50, 50),
-				new EnemyRec(450, 200, 50, 50), new EnemyRec(500, 200, 50, 50),
-				new ChaserEnemyXRec(550, 200, 50, 50, player),
-				new ChaserEnemyYRec(700, 200, 50, 50, player)));
-		enemyNum = enemies.size();
+
+		for (int i = 0; i < 7; i++) {
+			spawnEnemy(EnemyType.Standard);
+		}
+		spawnEnemy(EnemyType.ChaserX);
+		spawnEnemy(EnemyType.ChaserY);
+
 	}
-	
-	private void spawnEnemy() {
-		double randDouble = Math.random()*40 +10;
-		EnemyRec temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, randDouble, randDouble);
-		boolean isStuck = false;
+
+	private MovingRec spawnEnemy(EnemyType type) {
+		double randDouble;
+		MovingRec temp;
+
+		boolean isStuck;
 		do {
 			isStuck = false;
+			randDouble = Math.random() * 40 + 10;
+			switch (type) {
+			case ChaserX:
+				temp = new ChaserEnemyXRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 50, 50, player);
+				break;
+			case ChaserY:
+				temp = new ChaserEnemyYRec(50 + Math.random() * 1150, 50 + Math.random() * 650, 50, 50, player);
+				break;
+			default:
+			case Standard:
+				temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, randDouble, randDouble);
+				break;
+
+			}
 
 			for (int i = 0; i < collisionList.size(); i++) {// -1 to exclude the newly added temp rec
 				if (collisionList.get(i).checkCollision(temp))
 					isStuck = true;
 			}
-			Bounds pB = collisionList.get(0).getBoundsInParent();// get player bounds
+			Bounds pB = player.getBoundsInParent();// get player bounds
 
 			// check if it intersects player, but with extra space around
 			if (temp.intersects(pB.getMinX() - 150, pB.getMinY() - 150, 350, 350)) {
@@ -236,8 +247,6 @@ public class DodgeBox extends Application {
 				System.out.println("prevented Player Spawn");
 			}
 			if (isStuck) {
-				randDouble = Math.random()*40 +10;
-				temp = new EnemyRec(50 + Math.random() * 1150, 50 + Math.random() * 650, randDouble, randDouble);
 				System.out.println("Stuck spawn avoided");
 			}
 
@@ -245,10 +254,12 @@ public class DodgeBox extends Application {
 		enemies.add(temp);
 		gameObjects.add(temp);
 		collisionList.add(temp);
-		border.getChildren().add(temp);
+		enemyNum = enemies.size();
+		return temp;
 	}
-	
+
 	private void spawnBoundaries() {
+		
 		StillRec boundLeft = new StillRec(0, 0, 30, 800, true);
 		StillRec boundTop = new StillRec(30, 0, 1270, 30, true);
 		StillRec boundRight = new StillRec(1270, 30, 30, 770, true);
@@ -258,6 +269,26 @@ public class DodgeBox extends Application {
 		collisionList.add(boundTop);
 		collisionList.add(boundRight);
 		collisionList.add(boundBottom);
+
+		double width = Math.random() * 100 + 50d;
+		double height = Math.random() * 100 + 50d;
+		double posX = Math.random() * 1300;
+		double posY = Math.random() * 800;
+		StillRec random = new StillRec(width, height, posX, posY, true);
+		while (random.intersects(player.getBoundsInParent().getMinX() - 150, player.getBoundsInParent().getMinY() - 150,
+				350, 350)) {
+			width = Math.random() * 200 + 30d;
+			height = Math.random() * 200 + 30d;
+			posX = Math.random() * 1300;
+			posY = Math.random() * 800;
+			random = new StillRec(width, height, posX, posY, true);
+			System.out.println("prevented bad obstacle Spawn");
+		}
+		collisionList.add(random);
+		
 	}
 
+	enum EnemyType {
+		Standard, ChaserX, ChaserY, StillRec
+	}
 }
